@@ -1,0 +1,2 @@
+A React app using Chart.js and the NBA API to visualize the collective stats of teams, both official teams and custom configurations.
+This is meant to be easily show the stats of custom teams so it could be beneficial when drafting a fantasy basketball team.
