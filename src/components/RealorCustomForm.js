@@ -10,7 +10,7 @@ class RealorCustomForm extends React.Component {
                     <input type="radio" name="teamtype" value="custom"/>Custom Team<br/>
                 </form>
             </div>
-        )
+        );
     }
 }
 
