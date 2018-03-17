@@ -1,38 +1,9 @@
 import React from "react"
 import Autosuggest from 'react-autosuggest';
 
-const teamList = [
-    {id: "ATL", name: "Atlanta Hawks"},
-    {id: "BOS", name: "Boston Celtics"},
-    {id: "BKN", name: "Brooklyn Nets"},
-    {id: "CHA", name: "Charlotte Hornets"},
-    {id: "CHI", name: "Chicago Bulls"},
-    {id: "CLE", name: "Cleveland Cavaliers"},
-    {id: "DAL", name: "Dallas Mavericks"},
-    {id: "DEN", name: "Denver Nuggets"},
-    {id: "DET", name: "Detroit Pistons"},
-    {id: "GSW", name: "Golden State Warriors"},
-    {id: "HOU", name: "Houston Rockets"},
-    {id: "IND", name: "Indiana Pacers"},
-    {id: "LAC", name: "LA Clippers"},
-    {id: "LAL", name: "LA Lakers"},
-    {id: "MEM", name: "Memphis Grizzlies"},
-    {id: "MIA", name: "Miami Heat"},
-    {id: "MIL", name: "Milwaukee Bucks"},
-    {id: "MIN", name: "Minnesota Timberwolves"},
-    {id: "NOP", name: "New Orleans Pelicans"},
-    {id: "NYK", name: "New York Knicks"},
-    {id: "OKC", name: "Oklahoma City Thunder"},
-    {id: "ORL", name: "Orlando Magic"},
-    {id: "PHI", name: "Philadelphia Sixers"},
-    {id: "PHX", name: "Phoenix Suns"},
-    {id: "POR", name: "Portland Trail Blazers"},
-    {id: "SAC", name: "Sacramento Kings"},
-    {id: "SAS", name: "San Antonio Spurs"},
-    {id: "TOR", name: "Toronto Raptors"},
-    {id: "UTA", name: "Utah Jazz"},
-    {id: "WAS", name: "Washington Wizards"}
-]
+const NBA = require('nba');
+const teams = NBA.teams;
+
 
 function escapeRegexCharacters(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -47,17 +18,21 @@ function getSuggestions(value) {
 
     const regex = new RegExp('^' + escapedValue, 'i');
 
-    return teamList.filter(language => regex.test(language.name));
+    return teams.filter(language => regex.test(language.teamName));
 }
 
 function getSuggestionValue(suggestion) {
-    return suggestion.name;
+    return suggestion.teamName;
 }
 
 function renderSuggestion(suggestion) {
     return (
-        <span>{suggestion.name}</span>
+        <span>{suggestion.teamName}</span>
     );
+}
+
+function preventReload(e) {
+    e.preventDefault();
 }
 
 class RealTeamSelect extends React.Component {
@@ -97,7 +72,7 @@ class RealTeamSelect extends React.Component {
 
         return (
             <div>
-                <form>
+                <form onSubmit={this.props.getRealTeamData}>
                     <h3>Select the team whose stats you want to view</h3>
                     <p>Team</p>
                     <Autosuggest
@@ -106,7 +81,8 @@ class RealTeamSelect extends React.Component {
                         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                         getSuggestionValue={getSuggestionValue}
                         renderSuggestion={renderSuggestion}
-                        inputProps={inputProps} />
+                        inputProps={inputProps}
+                    />
                     <p>Season</p>
                     <select>
                         <option label="2017-18">2017-18</option>
@@ -131,7 +107,8 @@ class RealTeamSelect extends React.Component {
                         <option label="1998-99">1998-99</option>
                         <option label="1997-98">1997-98</option>
                         <option label="1996-97">1996-97</option>
-                    </select>
+                    </select><br/><br/>
+                    <button>Find</button>
                 </form>
             </div>
         );
