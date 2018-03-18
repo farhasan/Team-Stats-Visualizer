@@ -1,8 +1,8 @@
 import React from "react"
 import CustomTeamForm from "../components/forms/CustomTeamForm"
 import CustomTeamChart from "../components/charts/CustomTeamChart"
-
-import Loading from 'react-loading-components'
+import Navbar from "../Nav";
+import Loading from "../components/Loading"
 
 const NBA = require('nba');
 
@@ -104,21 +104,23 @@ class CustomTeamSelect extends React.Component {
 
     render() {
         return (
-            <div>
-                <CustomTeamForm getPlayerData={this.getPlayerData}/>
-                {this.state.customLoading === true &&
-                <Loading type='ball_triangle' width={100} height={100} fill='#f44242'/>}
-                {this.state.customTeam &&
-                <CustomTeamChart
-                    customTeam={this.state.customTeam}
-                    cTPM={this.state.customTPM}
-                    cREB={this.state.customREB}
-                    cAST={this.state.customAST}
-                    cSTL={this.state.customSTL}
-                    cBLK={this.state.customBLK}
-                    cTO={this.state.customTO}
-                    cPTS={this.state.customPTS}
-                />}
+            <div className="container">
+                <Navbar/><br/>
+                <div className="body">
+                    <CustomTeamForm getPlayerData={this.getPlayerData}/>
+                    {this.state.customLoading === true && <Loading/>}
+                    {this.state.customTeam &&
+                    <CustomTeamChart
+                        customTeam={this.state.customTeam}
+                        cTPM={this.state.customTPM}
+                        cREB={this.state.customREB}
+                        cAST={this.state.customAST}
+                        cSTL={this.state.customSTL}
+                        cBLK={this.state.customBLK}
+                        cTO={this.state.customTO}
+                        cPTS={this.state.customPTS}
+                    />}
+                </div>
             </div>
         );
     }

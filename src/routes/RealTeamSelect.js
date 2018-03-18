@@ -1,8 +1,9 @@
 import React from "react"
 import RealTeamForm from "../components/forms/RealTeamForm"
 import RealTeamChart from "../components/charts/RealTeamChart"
+import Navbar from "../Nav"
+import Loading from "../components/Loading"
 
-import Loading from 'react-loading-components'
 
 const NBA = require('nba');
 const constants = require('../constants');
@@ -63,22 +64,24 @@ class RealTeamSelect extends React.Component {
 
     render() {
         return (
-            <div>
-                <RealTeamForm getRealTeamData={this.getRealTeamData}/>
-                {this.state.realLoading === true &&
-                <Loading type='ball_triangle' width={100} height={100} fill='#f44242'/>}
-                {this.state.TPM &&
-                <RealTeamChart
-                    teamName={this.state.teamName}
-                    season={this.state.season}
-                    TPM={this.state.TPM}
-                    REB={this.state.REB}
-                    AST={this.state.AST}
-                    STL={this.state.STL}
-                    BLK={this.state.BLK}
-                    TO={this.state.TO}
-                    PTS={this.state.PTS}
-                />}
+            <div className="container">
+                <Navbar/><br/>
+                <div className="body">
+                    <RealTeamForm getRealTeamData={this.getRealTeamData}/>
+                    {this.state.realLoading === true && <Loading/>}
+                    {this.state.TPM &&
+                    <RealTeamChart
+                        teamName={this.state.teamName}
+                        season={this.state.season}
+                        TPM={this.state.TPM}
+                        REB={this.state.REB}
+                        AST={this.state.AST}
+                        STL={this.state.STL}
+                        BLK={this.state.BLK}
+                        TO={this.state.TO}
+                        PTS={this.state.PTS}
+                    />}
+                </div>
             </div>
         );
     }
