@@ -3,8 +3,8 @@ import ReactDOM from "react-dom"
 import Title from "./components/Title"
 import RealorCustomForm from "./components/RealorCustomForm"
 import Chart from "./components/Chart"
-
 import RealTeamSelect, {teamList} from "./components/RealTeamSelect"
+import CustomTeamSelect from "./components/CustomTeamSelect"
 
 const NBA = require('nba');
 const constants = require('./constants');
@@ -38,14 +38,14 @@ class App extends React.Component {
     getRealTeamData = async (e) => {
         e.preventDefault();
 
+        console.log(e.target.elements);
+
         const teamName = e.target.elements[0].value;
         const season = e.target.elements[1].value;
         const teamData = await NBA.stats.teamSplits({TeamID: constants.teamList[teamName], Season: season});
 
         const td = teamData.overallTeamDashboard[0];
 
-
-        console.log(this);
 
         this.setState(
             {
@@ -61,6 +61,17 @@ class App extends React.Component {
             }
 
         );
+
+    };
+
+    getPlayerData = (e) => {
+        e.preventDefault();
+
+        const playerNames = [];
+        for (let i = 0; i < 15; i++) {
+            playerNames.push(e.target.elements[i].value);
+        }
+        console.log(playerNames);
 
     };
 
@@ -81,6 +92,7 @@ class App extends React.Component {
                     TO={this.state.TO}
                     PTS={this.state.PTS}
                 />}
+                <CustomTeamSelect getPlayerData={this.getPlayerData}/>
             </div>
         );
     }

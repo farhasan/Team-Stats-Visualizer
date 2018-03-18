@@ -44,7 +44,7 @@ class Chart extends React.Component {
                         },
                         title: {
                             display: true,
-                            text: 'Total Stats for ' + this.props.teamName,
+                            text: 'Total Stats for ' + this.props.teamName + ' in ' + this.props.season,
                             fontSize: 25
                         },
                         layout: {
