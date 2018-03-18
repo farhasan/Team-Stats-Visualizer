@@ -3,6 +3,7 @@ import CustomTeamForm from "../components/forms/CustomTeamForm"
 import CustomTeamChart from "../components/charts/CustomTeamChart"
 import Navbar from "../Nav";
 import Loading from "../components/Loading"
+import DataTable from "../components/DataTable"
 
 const NBA = require('nba');
 
@@ -32,7 +33,8 @@ class CustomTeamSelect extends React.Component {
 
         const playerNames = [];
         for (let i = 0; i < 15; i++) {
-            playerNames.push(e.target.elements[i].value);
+            if(e.target.elements[i].value === "") {}
+            else {playerNames.push(e.target.elements[i].value);}
         }
 
         const playerInfo = [];
@@ -46,60 +48,73 @@ class CustomTeamSelect extends React.Component {
 
         let totalRebs = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let rebounds = (playerInfo[i].dreb + playerInfo[i].oreb) * playerInfo[i].gp;
-            totalRebs += rebounds;
+            totalRebs += (playerInfo[i].dreb + playerInfo[i].oreb) * playerInfo[i].gp;
         };
 
         let totalTs = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let threes = playerInfo[i].fG3M * playerInfo[i].gp;
-            totalTs += threes;
+            totalTs += playerInfo[i].fG3M * playerInfo[i].gp;
         };
 
         let totalAsts = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let assists = playerInfo[i].ast * playerInfo[i].gp;
-            totalAsts += assists;
+            totalAsts += playerInfo[i].ast * playerInfo[i].gp;
         };
 
         let totalStls = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let steals = playerInfo[i].stl * playerInfo[i].gp;
-            totalStls += steals;
+            totalStls += playerInfo[i].stl * playerInfo[i].gp;
         };
 
         let totalBlks = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let blocks = playerInfo[i].blk * playerInfo[i].gp;
-            totalBlks += blocks;
+            totalBlks += playerInfo[i].blk * playerInfo[i].gp;
         };
 
         let totalTos = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let tovs = playerInfo[i].tov * playerInfo[i].gp;
-            totalTos += tovs;
+            totalTos += playerInfo[i].tov * playerInfo[i].gp;
         };
 
         let totalPts = 0;
         for(let i = 0; i < playerInfo.length; i++) {
-            let points = playerInfo[i].pts * playerInfo[i].gp;
-            totalPts += points;
+            totalPts += playerInfo[i].pts * playerInfo[i].gp;
         };
 
+        let totalFGM = 0;
+        let attFG = 0;
+        for(let i = 0; i < playerInfo.length; i++) {
+            totalFGM += playerInfo[i].fgm * playerInfo[i].gp;
+            attFG += playerInfo[i].fga * playerInfo[i].gp;
+        };
+
+        const tfg = (totalFGM/attFG) * 100;
+
+        let totalft = 0;
+        let attft = 0;
+        for(let i = 0; i < playerInfo.length; i++) {
+            totalft += playerInfo[i].ftm * playerInfo[i].gp;
+            attft += playerInfo[i].fta* playerInfo[i].gp;
+        };
+
+        const ft = (totalft/attft) * 100;
+
+        console.log(playerInfo);
 
         this.setState({
-            customTPM: totalTs,
-            customREB: totalRebs,
-            customAST: totalAsts,
-            customSTL: totalStls,
-            customBLK: totalBlks,
-            customTO: totalTos,
-            customPTS: totalPts,
+            customFG: Math.round(tfg),
+            customFT: Math.round(ft),
+            customTPM: Math.round(totalTs),
+            customREB: Math.round(totalRebs),
+            customAST: Math.round(totalAsts),
+            customSTL: Math.round(totalStls),
+            customBLK: Math.round(totalBlks),
+            customTO: Math.round(totalTos),
+            customPTS: Math.round(totalPts),
             customTeam: playerNames,
             customLoading: false
         });
 
-        console.log(this.state);
     };
 
     render() {
@@ -107,8 +122,10 @@ class CustomTeamSelect extends React.Component {
             <div className="container">
                 <Navbar/><br/>
                 <div className="body">
-                    <CustomTeamForm getPlayerData={this.getPlayerData}/>
                     {this.state.customLoading === true && <Loading/>}
+                    <div className="form">
+                        <CustomTeamForm getPlayerData={this.getPlayerData}/>
+                    </div>
                     {this.state.customTeam &&
                     <CustomTeamChart
                         customTeam={this.state.customTeam}
@@ -119,6 +136,18 @@ class CustomTeamSelect extends React.Component {
                         cBLK={this.state.customBLK}
                         cTO={this.state.customTO}
                         cPTS={this.state.customPTS}
+                    />}
+                    {this.state.customTeam &&
+                    <DataTable
+                        FG={this.state.customFG}
+                        FT={this.state.customFT}
+                        TPM={this.state.customTPM}
+                        REB={this.state.customREB}
+                        AST={this.state.customAST}
+                        STL={this.state.customSTL}
+                        BLK={this.state.customBLK}
+                        TO={this.state.customTO}
+                        PTS={this.state.customPTS}
                     />}
                 </div>
             </div>

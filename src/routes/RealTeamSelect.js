@@ -3,6 +3,7 @@ import RealTeamForm from "../components/forms/RealTeamForm"
 import RealTeamChart from "../components/charts/RealTeamChart"
 import Navbar from "../Nav"
 import Loading from "../components/Loading"
+import DataTable from "../components/DataTable"
 
 
 const NBA = require('nba');
@@ -35,8 +36,6 @@ class RealTeamSelect extends React.Component {
         const teamName = e.target.elements[0].value;
         const season = e.target.elements[1].value;
 
-        console.log(teamName, season);
-
         const teamData = await NBA.stats.teamSplits({TeamID: constants.teamList[teamName], Season: season});
 
         const td = teamData.overallTeamDashboard[0];
@@ -46,20 +45,18 @@ class RealTeamSelect extends React.Component {
             {
                 teamName: teamName,
                 season: season,
-                TPM: td.fG3M * td.gp,
-                REB: (td.dreb + td.oreb) * td.gp,
-                AST: td.ast * td.gp,
-                STL: td.stl * td.gp,
-                BLK: td.blk * td.gp,
-                TO: td.tov * td.gp,
-                PTS: td.pts * td.gp,
+                FG: Math.round(td.fgPct * 100),
+                FT: Math.round(td.ftPct * 100),
+                TPM: Math.round(td.fG3M * td.gp),
+                REB: Math.round((td.dreb + td.oreb) * td.gp),
+                AST: Math.round(td.ast * td.gp),
+                STL: Math.round(td.stl * td.gp),
+                BLK: Math.round(td.blk * td.gp),
+                TO: Math.round(td.tov * td.gp),
+                PTS: Math.round(td.pts * td.gp),
                 realLoading: false
             }
-
         );
-
-        console.log(this.state)
-
     };
 
     render() {
@@ -67,8 +64,10 @@ class RealTeamSelect extends React.Component {
             <div className="container">
                 <Navbar/><br/>
                 <div className="body">
-                    <RealTeamForm getRealTeamData={this.getRealTeamData}/>
                     {this.state.realLoading === true && <Loading/>}
+                    <div className="form">
+                        <RealTeamForm getRealTeamData={this.getRealTeamData}/>
+                    </div>
                     {this.state.TPM &&
                     <RealTeamChart
                         teamName={this.state.teamName}
@@ -81,6 +80,19 @@ class RealTeamSelect extends React.Component {
                         TO={this.state.TO}
                         PTS={this.state.PTS}
                     />}
+                    {this.state.TPM &&
+                    <DataTable
+                        FG={this.state.FG}
+                        FT={this.state.FT}
+                        TPM={this.state.TPM}
+                        REB={this.state.REB}
+                        AST={this.state.AST}
+                        STL={this.state.STL}
+                        BLK={this.state.BLK}
+                        TO={this.state.TO}
+                        PTS={this.state.PTS}
+                    />
+                    }
                 </div>
             </div>
         );

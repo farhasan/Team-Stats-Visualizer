@@ -1,5 +1,6 @@
 import React from "react"
 import {Bar} from "react-chartjs-2"
+import 'chartjs-plugin-datalabels';
 
 class RealTeamChart extends React.Component {
 
@@ -93,6 +94,12 @@ class RealTeamChart extends React.Component {
                                         max: 10000
                                     }
                                 }]
+                            },
+                            plugins: {
+                                datalabels: {
+                                    display: true,
+                                    color: 'white'
+                                }
                             }
                         }
                         } redraw

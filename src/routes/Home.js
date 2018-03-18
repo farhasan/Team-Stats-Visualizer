@@ -11,7 +11,7 @@ class Home extends React.Component {
                 <div className="body">
                     <h3>Use this tool to view the traditional stats of NBA teams! You can
                     view the stats of current or historical NBA teams, or you can select
-                    players and view the collective stats of those players. Use that tool
+                    players and view the collective stats of those players. Use that
                     to help you prepare for the Fantasy Basketball season!</h3><br/><br/>
                     <p>Built by Farhan Hasan</p>
                     <p>React app using NBA API and Charts.js</p>
