@@ -1,7 +1,7 @@
 import React from "react"
 import {Bar} from "react-chartjs-2"
 
-class Chart extends React.Component {
+class CustomTeamChart extends React.Component {
 
     state = {
         chartData: {
@@ -9,15 +9,14 @@ class Chart extends React.Component {
             datasets: [
                 {
                     data: [
-                        this.props.TPM,
-                        this.props.REB,
-                        this.props.AST,
-                        this.props.STL,
-                        this.props.BLK,
-                        this.props.TO,
-                        this.props.PTS
+                        this.props.cTPM,
+                        this.props.cREB,
+                        this.props.cAST,
+                        this.props.cSTL,
+                        this.props.cBLK,
+                        this.props.cTO,
+                        this.props.cPTS
                     ],
-                    //data: [100, 100, 100, 100, 100, 100, 100],
                     label: "# of stat",
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',
@@ -35,7 +34,7 @@ class Chart extends React.Component {
 
     render() {
         return (
-            <div className="chart">
+            <div className="customTeamChart">
                 <Bar
                     data={this.state.chartData}
                     options={{
@@ -44,7 +43,7 @@ class Chart extends React.Component {
                         },
                         title: {
                             display: true,
-                            text: 'Total Stats for ' + this.props.teamName + ' in ' + this.props.season,
+                            text: 'Total Stats for Custom Team',
                             fontSize: 25
                         },
                         layout: {
@@ -59,7 +58,7 @@ class Chart extends React.Component {
                             yAxes:[{
                                 stacked: true,
                                 ticks: {
-                                    max: 10000
+                                    max: 15000
                                 }
                             }]
                         }
@@ -71,4 +70,4 @@ class Chart extends React.Component {
     }
 };
 
-export default Chart;
+export default CustomTeamChart;

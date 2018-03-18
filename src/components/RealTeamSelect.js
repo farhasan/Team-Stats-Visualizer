@@ -1,5 +1,5 @@
 import React from "react"
-import RealTeamSearch from "./RealTeamSearch"
+import RealTeamSearch from "./search_components/RealTeamSearch"
 
 const NBA = require('nba');
 

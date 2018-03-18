@@ -1,6 +1,6 @@
 import React from "react"
 import Autosuggest from 'react-autosuggest';
-import players from "../players.json"
+import players from "../../players.json"
 
 
 function escapeRegexCharacters(str) {
