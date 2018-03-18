@@ -1,14 +1,7 @@
 import React from "react"
-import RealTeamSearch from "./search_components/RealTeamSearch"
+import RealTeamSearch from "../search_components/RealTeamSearch"
 
-const NBA = require('nba');
-
-
-function preventReload(e) {
-    e.preventDefault();
-}
-
-class RealTeamSelect extends React.Component {
+class RealTeamForm extends React.Component {
 
     render() {
         return (
@@ -49,4 +42,4 @@ class RealTeamSelect extends React.Component {
     }
 }
 
-export default RealTeamSelect;
+export default RealTeamForm;

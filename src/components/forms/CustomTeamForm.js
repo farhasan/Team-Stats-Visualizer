@@ -1,16 +1,8 @@
 import React from "react"
-import Autosuggest from 'react-autosuggest';
-import players from "../players.json"
-import CustomTeamSearch from "./search_components/CustomTeamSearch"
-
-const NBA = require('nba');
+import CustomTeamSearch from "../search_components/CustomTeamSearch"
 
 
-function preventReload(e) {
-    e.preventDefault();
-}
-
-class CustomTeamSelect extends React.Component {
+class CustomTeamForm extends React.Component {
 
     createPlayerSearch(num) {
         return (
@@ -42,4 +34,4 @@ class CustomTeamSelect extends React.Component {
     }
 }
 
-export default CustomTeamSelect;
+export default CustomTeamForm;

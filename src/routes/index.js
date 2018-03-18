@@ -1,8 +1,16 @@
 import React from 'react'
 import {BrowserRouter, Route} from 'react-router-dom'
 
-export default() => {
+import Home from './Home'
+import RealTeamSelect from './RealTeamSelect'
+import CustomTeamSelect from './CustomTeamSelect'
+
+export default() => (
     <BrowserRouter>
-        <Route path="/" component={Home} />
+        <div>
+            <Route path="/" exact component={Home} />
+            <Route path="/teamstats" exact component={RealTeamSelect} />
+            <Route path="/customstats" exact component={CustomTeamSelect} />
+        </div>
     </BrowserRouter>
-}
+);
